@@ -7,10 +7,10 @@ interface IProps {
 
 const MainLayout = ({ children }: IProps) => {
   return (
-    <Box>
+    <Box height="100vh">
       <Appbar />
-      <Container>
-        <Box>{children}</Box>
+      <Container sx={{ mt: 2 }}>
+        <Box height="100%">{children}</Box>
       </Container>
     </Box>
   );

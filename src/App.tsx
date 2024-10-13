@@ -1,13 +1,12 @@
-import { Typography } from "@mui/material";
-
 import MainLayout from "./layouts/MainLayout";
+import SignupRoute from "./features/authentication/routes/signupRoute";
 
 const App = () => {
   document.title = "Jobhub project";
 
   return (
     <MainLayout>
-      <Typography>Hello World</Typography>
+      <SignupRoute />
     </MainLayout>
   );
 };
