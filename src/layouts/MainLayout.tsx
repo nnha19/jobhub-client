@@ -1,4 +1,5 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import Appbar from "./MainAppbar";
 
 interface IProps {
   children: JSX.Element;
@@ -6,10 +7,12 @@ interface IProps {
 
 const MainLayout = ({ children }: IProps) => {
   return (
-    <Container>
-      <Typography variant="h1">Jobhub project</Typography>
-      <Box>{children}</Box>
-    </Container>
+    <Box>
+      <Appbar />
+      <Container>
+        <Box>{children}</Box>
+      </Container>
+    </Box>
   );
 };
 
