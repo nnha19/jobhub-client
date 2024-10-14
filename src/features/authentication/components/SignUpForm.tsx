@@ -6,6 +6,7 @@ import CustomRadioButton from "../../../components/FormFields/CusotmRadioButton"
 import useUserRegisterMutation, {
   type RegisterUserFormValues,
 } from "../api/useUserRegisterMutation";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 const USER_TYPE_OPTIONS = [
   { label: "Candidate", value: "candidate" },
@@ -14,6 +15,8 @@ const USER_TYPE_OPTIONS = [
 
 const SignUpForm = () => {
   const mutation = useUserRegisterMutation();
+  const { handleLogin } = useAuthContext();
+
   const { register, handleSubmit } = useForm<RegisterUserFormValues>({
     defaultValues: {
       username: "",
@@ -26,7 +29,7 @@ const SignUpForm = () => {
   const onSubmit = (signUpFormValues: RegisterUserFormValues) => {
     mutation.mutate(signUpFormValues, {
       onSuccess: (data) => {
-        console.log(data);
+        handleLogin(data.token);
       },
     });
   };

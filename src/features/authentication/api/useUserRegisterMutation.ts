@@ -8,10 +8,19 @@ export type RegisterUserFormValues = {
   userType: string;
 };
 
+export type RegisterUserFormResponse = Omit<
+  RegisterUserFormValues,
+  "password"
+> & {
+  _id: string;
+  joinedDate: string;
+  token: string;
+};
+
 const useUserRegisterMutation = () => {
   return useMutation({
     mutationFn: async (registerFormValues: RegisterUserFormValues) => {
-      const resp = await axios.post(
+      const resp = await axios.post<RegisterUserFormResponse>(
         "http://localhost:3000/users/register",
         registerFormValues
       );

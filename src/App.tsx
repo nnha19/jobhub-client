@@ -1,6 +1,7 @@
 import MainLayout from "./layouts/MainLayout";
 import SignupRoute from "./features/authentication/routes/signupRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
+import AuthContextProvider from "./contexts/AuthContext";
 
 const App = () => {
   document.title = "Jobhub project";
@@ -8,9 +9,11 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MainLayout>
-        <SignupRoute />
-      </MainLayout>
+      <AuthContextProvider>
+        <MainLayout>
+          <SignupRoute />
+        </MainLayout>
+      </AuthContextProvider>
     </QueryClientProvider>
   );
 };
