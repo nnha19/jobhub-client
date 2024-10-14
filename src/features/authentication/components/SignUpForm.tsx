@@ -1,5 +1,6 @@
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 
 import CustomTextField from "../../../components/FormFields/CustomTextField";
 import CustomRadioButton from "../../../components/FormFields/CusotmRadioButton";
@@ -7,7 +8,6 @@ import useUserRegisterMutation, {
   type RegisterUserFormValues,
 } from "../api/useUserRegisterMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { NavLink } from "react-router-dom";
 
 const USER_TYPE_OPTIONS = [
   { label: "Candidate", value: "candidate" },
