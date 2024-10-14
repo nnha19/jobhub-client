@@ -6,6 +6,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import useUsersLoginMutation, {
   LoginFormValues,
 } from "../api/useUsersLoginMutation";
+import { NavLink } from "react-router-dom";
 
 const LoginForm = () => {
   const mutation = useUsersLoginMutation();
@@ -56,6 +57,10 @@ const LoginForm = () => {
         <Button type="submit" variant="contained">
           Create Account
         </Button>
+
+        <NavLink to="/signup">
+          <Typography>Don't have an account? Signup</Typography>
+        </NavLink>
       </Paper>
     </Stack>
   );

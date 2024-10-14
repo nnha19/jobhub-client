@@ -7,6 +7,7 @@ import useUserRegisterMutation, {
   type RegisterUserFormValues,
 } from "../api/useUserRegisterMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { NavLink } from "react-router-dom";
 
 const USER_TYPE_OPTIONS = [
   { label: "Candidate", value: "candidate" },
@@ -72,6 +73,10 @@ const SignUpForm = () => {
         <Button type="submit" variant="contained">
           Create Account
         </Button>
+
+        <NavLink to="/login">
+          <Typography>Already have an account? Login</Typography>
+        </NavLink>
       </Paper>
     </Stack>
   );
