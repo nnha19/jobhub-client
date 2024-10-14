@@ -1,9 +1,36 @@
 import { Paper, Stack, Typography, Button } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 import CustomTextField from "../../../components/FormFields/CustomTextField";
 import CustomRadioButton from "../../../components/FormFields/CusotmRadioButton";
+import useUserRegisterMutation, {
+  type RegisterUserFormValues,
+} from "../api/useUserRegisterMutation";
+
+const USER_TYPE_OPTIONS = [
+  { label: "Candidate", value: "candidate" },
+  { label: "Recruiter", value: "recruiter" },
+];
 
 const SignUpForm = () => {
+  const mutation = useUserRegisterMutation();
+  const { register, handleSubmit } = useForm<RegisterUserFormValues>({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      userType: "candidate",
+    },
+  });
+
+  const onSubmit = (signUpFormValues: RegisterUserFormValues) => {
+    mutation.mutate(signUpFormValues, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    });
+  };
+
   return (
     <Stack
       sx={{
@@ -12,6 +39,8 @@ const SignUpForm = () => {
         alignItems: "center",
         justifyContent: "center",
       }}
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Paper
         sx={{
@@ -26,11 +55,20 @@ const SignUpForm = () => {
         <Typography textAlign="center" variant="h5" mb={4}>
           Create an account
         </Typography>
-        <CustomTextField label="Username" />
-        <CustomTextField label="Email" />
-        <CustomTextField label="Password" />
-        <CustomRadioButton />
-        <Button variant="contained">Create Account</Button>
+
+        <CustomTextField {...register("username")} label="Username" />
+        <CustomTextField {...register("email")} label="Email" />
+        <CustomTextField {...register("password")} label="Password" />
+        <CustomRadioButton
+          options={USER_TYPE_OPTIONS}
+          radioGroupProps={{
+            ...register("userType"),
+            defaultValue: "candidate",
+          }}
+        />
+        <Button type="submit" variant="contained">
+          Create Account
+        </Button>
       </Paper>
     </Stack>
   );

@@ -1,11 +1,11 @@
+import { forwardRef, Ref } from "react";
+
 import { TextField, TextFieldProps } from "@mui/material";
 
-// interface IProps extends TextFieldProps {
-//   //
-// }
-
-const CustomTextField = ({ ...textFieldProps }: TextFieldProps) => {
-  return <TextField size="small" {...textFieldProps} />;
-};
+const CustomTextField = forwardRef(
+  (props: TextFieldProps, ref: Ref<HTMLInputElement>) => {
+    return <TextField size="small" {...props} ref={ref} />;
+  }
+);
 
 export default CustomTextField;
