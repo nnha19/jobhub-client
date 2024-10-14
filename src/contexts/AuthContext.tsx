@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 interface AuthContextValues {
   isAuthenticated: boolean;
   handleLogin: (token: string) => void;
+  handleLogout: () => void;
 }
 
 const AuthContext = createContext({} as AuthContextValues);
@@ -21,10 +22,18 @@ const AuthContextProvider = ({ children }: IProps) => {
     alert("Successfully logged in.");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+
+    alert("Successfully logged out.");
+  };
+
   const memoizedValued = useMemo(
     () => ({
       isAuthenticated,
       handleLogin,
+      handleLogout,
     }),
     [isAuthenticated]
   );

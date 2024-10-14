@@ -1,6 +1,7 @@
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { useAuthContext } from "../contexts/AuthContext";
 import RecruiterAppbar from "./RecruiterAppbar";
+import { NavLink } from "react-router-dom";
 
 interface AppbarWrapperProps {
   children: React.ReactNode;
@@ -27,8 +28,12 @@ const Appbar = () => {
   return (
     <AppbarWrapper>
       <Stack direction="row" spacing={2}>
-        <Button color="inherit">Login</Button>
-        <Button color="inherit">Sign Up</Button>
+        <NavLink to="login">
+          <Button color="inherit">Login</Button>
+        </NavLink>
+        <NavLink to="signup">
+          <Button color="inherit">Sign Up</Button>
+        </NavLink>
       </Stack>
     </AppbarWrapper>
   );

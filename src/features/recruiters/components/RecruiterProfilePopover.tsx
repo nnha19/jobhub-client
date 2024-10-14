@@ -12,6 +12,7 @@ import {
 import WorkIcon from "@mui/icons-material/Work";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 interface IProps {
   anchorEl: HTMLButtonElement | null;
@@ -20,6 +21,8 @@ interface IProps {
 
 const RecruiterProfilePopover = ({ anchorEl, onClose }: IProps) => {
   const open = Boolean(anchorEl);
+
+  const { handleLogout } = useAuthContext();
 
   return (
     <Popover
@@ -52,8 +55,9 @@ const RecruiterProfilePopover = ({ anchorEl, onClose }: IProps) => {
               </ListItemButton>
             </ListItem>
             <Divider />
+
             <ListItem disablePadding disableGutters>
-              <ListItemButton>
+              <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
                   <LogoutIcon />
                 </ListItemIcon>
