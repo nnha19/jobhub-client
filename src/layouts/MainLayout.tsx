@@ -1,12 +1,9 @@
 import { Box, Container, Typography } from "@mui/material";
 import Appbar from "./MainAppbar";
 import { useAuthContext } from "../contexts/AuthContext";
+import { Outlet } from "react-router-dom";
 
-interface IProps {
-  children: JSX.Element;
-}
-
-const MainLayout = ({ children }: IProps) => {
+const MainLayout = () => {
   const { isAuthenticated } = useAuthContext();
 
   return (
@@ -14,7 +11,9 @@ const MainLayout = ({ children }: IProps) => {
       <Appbar />
       <Container sx={{ mt: 2 }}>
         {isAuthenticated && <Typography> Authenticated</Typography>}
-        <Box height="100%">{children}</Box>
+        <Box height="100%">
+          <Outlet />
+        </Box>
       </Container>
     </Box>
   );
