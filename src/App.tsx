@@ -8,6 +8,7 @@ import SignupRoute from "./features/authentication/routes/signupRoute";
 import JobsRoute from "./features/jobs";
 import { RecruiterDashboardRoute } from "./features/recruiters";
 import { SnackbarProvider } from "notistack";
+import ProtectedRoute from "./layouts/ProtectedRoute";
 
 const App = () => {
   document.title = "Jobhub project";
@@ -23,11 +24,22 @@ const App = () => {
                 <Route path="/login" element={<LoginRoute />} />
                 <Route path="/signup" element={<SignupRoute />} />
 
-                <Route path="/jobs" element={<JobsRoute />} />
+                <Route
+                  path="/jobs"
+                  element={
+                    <ProtectedRoute>
+                      <JobsRoute />
+                    </ProtectedRoute>
+                  }
+                />
 
                 <Route
                   path="/recruiter"
-                  element={<RecruiterDashboardRoute />}
+                  element={
+                    <ProtectedRoute>
+                      <RecruiterDashboardRoute />
+                    </ProtectedRoute>
+                  }
                 />
               </Route>
             </Routes>
