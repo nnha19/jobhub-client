@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import { Badge, IconButton, Stack, Tooltip } from "@mui/material";
-import Person2Icon from "@mui/icons-material/Person2";
+import { Avatar, Badge, IconButton, Stack, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 import { AppbarWrapper } from "./MainAppbar";
 import RecruiterProfilePopover from "../features/recruiters";
+import { deepPurple } from "@mui/material/colors";
 
 const RecruiterAppbar = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -25,7 +25,7 @@ const RecruiterAppbar = () => {
           </IconButton>
         </Tooltip>
         <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-          <Person2Icon />
+          <Avatar sx={{ bgcolor: deepPurple[500] }}>N</Avatar>
         </IconButton>
         <RecruiterProfilePopover
           anchorEl={anchorEl}
