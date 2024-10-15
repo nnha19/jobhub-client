@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import CustomTextField from "../../../components/FormFields/CustomTextField";
 import CustomRadioButton from "../../../components/FormFields/CusotmRadioButton";
@@ -14,7 +14,7 @@ const USER_TYPE_OPTIONS = [
   { label: "Recruiter", value: "recruiter" },
 ];
 
-const SIGN_UP_FORM_DEFAULT_VALUES = {
+const SIGN_UP_FORM_DEFAULT_VALUES: RegisterUserFormValues = {
   username: "",
   email: "",
   password: "",
@@ -22,6 +22,7 @@ const SIGN_UP_FORM_DEFAULT_VALUES = {
 };
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const mutation = useUserRegisterMutation();
   const { handleLogin } = useAuthContext();
 
@@ -33,6 +34,11 @@ const SignUpForm = () => {
     mutation.mutate(signUpFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
+        if (data.userType === "recruiter") {
+          navigate("/recruiter/dashboard");
+        } else {
+          navigate("/jobs");
+        }
       },
     });
   };

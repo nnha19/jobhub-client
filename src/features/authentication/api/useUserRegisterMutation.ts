@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 
+export type UserTypeEnum = "recruiter" | "candidate";
+
 export type RegisterUserFormValues = {
   username: string;
   email: string;
   password: string;
-  userType: string;
+  userType: UserTypeEnum;
 };
 
 export type RegisterUserFormResponse = Omit<

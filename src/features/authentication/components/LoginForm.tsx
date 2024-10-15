@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import CustomTextField from "../../../components/FormFields/CustomTextField";
 import { useAuthContext } from "../../../contexts/AuthContext";
@@ -9,6 +9,7 @@ import useUsersLoginMutation, {
 } from "../api/useUsersLoginMutation";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const mutation = useUsersLoginMutation();
   const { handleLogin } = useAuthContext();
 
@@ -23,6 +24,11 @@ const LoginForm = () => {
     mutation.mutate(loginFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
+        if (data.userType === "recruiter") {
+          navigate("/recruiter/dashboard");
+        } else {
+          navigate("/jobs");
+        }
       },
     });
   };
@@ -59,7 +65,7 @@ const LoginForm = () => {
           type="password"
         />
         <Button type="submit" variant="contained">
-          Create Account
+          Log In
         </Button>
 
         <NavLink to="/signup">
