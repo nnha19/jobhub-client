@@ -7,6 +7,7 @@ import MainLayout from "./layouts/MainLayout";
 import SignupRoute from "./features/authentication/routes/signupRoute";
 import JobsRoute from "./features/jobs";
 import { RecruiterDashboardRoute } from "./features/recruiters";
+import { SnackbarProvider } from "notistack";
 
 const App = () => {
   document.title = "Jobhub project";
@@ -15,18 +16,23 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route path="/login" element={<LoginRoute />} />
-              <Route path="/signup" element={<SignupRoute />} />
+        <SnackbarProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route path="/login" element={<LoginRoute />} />
+                <Route path="/signup" element={<SignupRoute />} />
 
-              <Route path="/jobs" element={<JobsRoute />} />
+                <Route path="/jobs" element={<JobsRoute />} />
 
-              <Route path="/recruiter" element={<RecruiterDashboardRoute />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+                <Route
+                  path="/recruiter"
+                  element={<RecruiterDashboardRoute />}
+                />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </SnackbarProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   );

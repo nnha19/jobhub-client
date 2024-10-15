@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useMutation } from "react-query";
+import api from "../../../lib/axios";
 
 export type UserTypeEnum = "recruiter" | "candidate";
 
@@ -22,8 +22,8 @@ export type RegisterUserFormResponse = Omit<
 const useUserRegisterMutation = () => {
   return useMutation({
     mutationFn: async (registerFormValues: RegisterUserFormValues) => {
-      const resp = await axios.post<RegisterUserFormResponse>(
-        "http://localhost:3000/users/register",
+      const resp = await api.post<RegisterUserFormResponse>(
+        "/users/register",
         registerFormValues
       );
       return resp.data;
