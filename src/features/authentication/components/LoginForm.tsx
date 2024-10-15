@@ -24,7 +24,11 @@ const LoginForm = () => {
     mutation.mutate(loginFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
-        if (data.userType === "recruiter") {
+      },
+      onSettled: (user) => {
+        if (!user) return;
+
+        if (user.userType === "recruiter") {
           navigate("/recruiter/dashboard");
         } else {
           navigate("/jobs");

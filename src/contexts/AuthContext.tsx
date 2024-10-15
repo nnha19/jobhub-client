@@ -18,15 +18,11 @@ const AuthContextProvider = ({ children }: IProps) => {
   const handleLogin = (token: string) => {
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
-
-    alert("Successfully logged in.");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-
-    alert("Successfully logged out.");
   };
 
   const memoizedValued = useMemo(

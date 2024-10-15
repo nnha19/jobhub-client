@@ -13,6 +13,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   anchorEl: HTMLButtonElement | null;
@@ -20,9 +21,15 @@ interface IProps {
 }
 
 const RecruiterProfilePopover = ({ anchorEl, onClose }: IProps) => {
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
 
   const { handleLogout } = useAuthContext();
+
+  const onLogoutClick = () => {
+    handleLogout();
+    navigate("/login");
+  };
 
   return (
     <Popover
@@ -57,7 +64,7 @@ const RecruiterProfilePopover = ({ anchorEl, onClose }: IProps) => {
             <Divider />
 
             <ListItem disablePadding disableGutters>
-              <ListItemButton onClick={handleLogout}>
+              <ListItemButton onClick={onLogoutClick}>
                 <ListItemIcon>
                   <LogoutIcon />
                 </ListItemIcon>
