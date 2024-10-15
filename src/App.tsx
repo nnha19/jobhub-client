@@ -9,6 +9,7 @@ import JobsRoute from "./features/jobs";
 import { RecruiterDashboardRoute } from "./features/recruiters";
 import { SnackbarProvider } from "notistack";
 import ProtectedRoute from "./layouts/ProtectedRoute";
+import WithRecruiterRoute from "./layouts/RecruiterRoute";
 
 const App = () => {
   document.title = "Jobhub project";
@@ -36,9 +37,9 @@ const App = () => {
                 <Route
                   path="/recruiter"
                   element={
-                    <ProtectedRoute>
+                    <WithRecruiterRoute>
                       <RecruiterDashboardRoute />
-                    </ProtectedRoute>
+                    </WithRecruiterRoute>
                   }
                 />
               </Route>
