@@ -6,45 +6,52 @@ import {
   RadioGroup,
   RadioGroupProps,
 } from "@mui/material";
-import { forwardRef, Ref } from "react";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 
 export type RadioOption = {
   label: string;
   value: string;
 };
 
-interface IProps extends RadioGroupProps {
+interface IProps<FValues extends FieldValues>
+  extends UseControllerProps<FValues> {
   options: RadioOption[];
   radioGroupProps?: RadioGroupProps;
+  label: string;
 }
 
-const CustomRadioButton = forwardRef(
-  ({ options, radioGroupProps }: IProps, ref: Ref<unknown>) => {
-    console.log(radioGroupProps);
-
-    return (
-      <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
-          User Type(Recruiter or Candidate)
-        </FormLabel>
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          sx={{ display: "flex", flexDirection: "row", gap: 2 }}
-          ref={ref}
-          {...radioGroupProps}
-        >
-          {options.map((option) => (
-            <FormControlLabel
-              key={option.value}
-              value={option.value}
-              control={<Radio />}
-              label={option.label}
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
-    );
-  }
-);
+const CustomRadioButton = <FValues extends FieldValues>({
+  options,
+  name,
+  control,
+  label,
+}: IProps<FValues>) => {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field: { value, onChange } }) => (
+        <FormControl>
+          <FormLabel id={label}>{label}</FormLabel>
+          <RadioGroup
+            aria-labelledby={label}
+            sx={{ display: "flex", flexDirection: "row", gap: 2 }}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          >
+            {options.map((option) => (
+              <FormControlLabel
+                key={option.value}
+                value={option.value}
+                control={<Radio />}
+                label={option.label}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+      )}
+    />
+  );
+};
 
 export default CustomRadioButton;

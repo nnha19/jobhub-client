@@ -14,20 +14,26 @@ const USER_TYPE_OPTIONS = [
   { label: "Recruiter", value: "recruiter" },
 ];
 
+const SIGN_UP_FORM_DEFAULT_VALUES = {
+  username: "",
+  email: "",
+  password: "",
+  userType: "candidate",
+};
+
 const SignUpForm = () => {
   const mutation = useUserRegisterMutation();
   const { handleLogin } = useAuthContext();
 
-  const { register, handleSubmit } = useForm<RegisterUserFormValues>({
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      userType: "candidate",
-    },
+  const { register, handleSubmit, control } = useForm<RegisterUserFormValues>({
+    defaultValues: SIGN_UP_FORM_DEFAULT_VALUES,
   });
 
   const onSubmit = (signUpFormValues: RegisterUserFormValues) => {
+    console.log(signUpFormValues);
+
+    return;
+
     mutation.mutate(signUpFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
@@ -65,10 +71,9 @@ const SignUpForm = () => {
         <CustomTextField {...register("password")} label="Password" />
         <CustomRadioButton
           options={USER_TYPE_OPTIONS}
-          radioGroupProps={{
-            ...register("userType"),
-            defaultValue: "candidate",
-          }}
+          control={control}
+          name="userType"
+          label="Select user type"
         />
         <Button type="submit" variant="contained">
           Create Account
