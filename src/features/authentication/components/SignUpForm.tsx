@@ -30,10 +30,6 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (signUpFormValues: RegisterUserFormValues) => {
-    console.log(signUpFormValues);
-
-    return;
-
     mutation.mutate(signUpFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
@@ -68,7 +64,11 @@ const SignUpForm = () => {
 
         <CustomTextField {...register("username")} label="Username" />
         <CustomTextField {...register("email")} label="Email" />
-        <CustomTextField {...register("password")} label="Password" />
+        <CustomTextField
+          {...register("password")}
+          label="Password"
+          type="password"
+        />
         <CustomRadioButton
           options={USER_TYPE_OPTIONS}
           control={control}

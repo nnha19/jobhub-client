@@ -53,7 +53,11 @@ const LoginForm = () => {
         </Typography>
 
         <CustomTextField {...register("email")} label="Email" />
-        <CustomTextField {...register("password")} label="Password" />
+        <CustomTextField
+          {...register("password")}
+          label="Password"
+          type="password"
+        />
         <Button type="submit" variant="contained">
           Create Account
         </Button>
