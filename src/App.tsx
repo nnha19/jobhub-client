@@ -20,8 +20,8 @@ const App = () => {
             <Routes>
               <Route path="/" element={<MainLayout />}>
                 <Route path="/*" element={<AuthenticationRoutes />} />
-                <Route path="/*" element={<JobsRoutes />} />
-                <Route path="/*" element={<RecruiterRoutes />} />
+                <Route path="jobs/*" element={<JobsRoutes />} />
+                <Route path="recruiter/*" element={<RecruiterRoutes />} />
               </Route>
             </Routes>
           </BrowserRouter>

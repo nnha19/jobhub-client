@@ -7,6 +7,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { AppbarWrapper } from "./MainAppbar";
 import RecruiterProfilePopover from "../features/recruiters";
 import { deepPurple } from "@mui/material/colors";
+import { NavLink } from "react-router-dom";
 
 const RecruiterAppbar = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -20,9 +21,11 @@ const RecruiterAppbar = () => {
           </Badge>
         </IconButton>
         <Tooltip title="Add New Job">
-          <IconButton>
-            <AddIcon />
-          </IconButton>
+          <NavLink to="/jobs/new">
+            <IconButton>
+              <AddIcon />
+            </IconButton>
+          </NavLink>
         </Tooltip>
         <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
           <Avatar sx={{ bgcolor: deepPurple[500] }}>N</Avatar>

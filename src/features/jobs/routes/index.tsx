@@ -7,9 +7,9 @@ import RecruiterRoute from "../../../layouts/RecruiterRoute";
 const JobsRoutes = () => {
   return (
     <Routes>
-      <Route path="/jobs" element={<JobsRoute />} />
+      <Route path="/" element={<JobsRoute />} />
       <Route
-        path="/jobs/new"
+        path="/new"
         element={
           <RecruiterRoute>
             <NewJobRoute />
