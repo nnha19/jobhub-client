@@ -5,8 +5,10 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const WithRecruiterRoute = ({ children }: IProps) => {
+const RecruiterRoute = ({ children }: IProps) => {
   const { data } = useUsersCurrentRetrieveQuery();
+
+  console.log(data);
 
   if (data?.userType !== "recruiter")
     return <Typography>You can't access this page</Typography>;
@@ -14,4 +16,4 @@ const WithRecruiterRoute = ({ children }: IProps) => {
   return <div>{children}</div>;
 };
 
-export default WithRecruiterRoute;
+export default RecruiterRoute;
