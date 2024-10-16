@@ -35,7 +35,7 @@ const App = () => {
                 />
 
                 <Route
-                  path="/recruiter"
+                  path="/recruiter/dashboard"
                   element={
                     <WithRecruiterRoute>
                       <RecruiterDashboardRoute />

@@ -1,15 +1,15 @@
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 
-import { RegisterUserFormResponse } from "./useUserRegisterMutation";
 import api from "../../../lib/axios";
+import { User } from "../../../api/users/types";
 
 export type LoginFormValues = {
   email: string;
   password: string;
 };
 
-export type LoginFormResponse = RegisterUserFormResponse;
+export type LoginFormResponse = User & { token: string };
 
 const useUsersLoginMutation = () => {
   const { enqueueSnackbar } = useSnackbar();

@@ -1,27 +1,20 @@
 import { useMutation } from "react-query";
 import api from "../../../lib/axios";
+import { User } from "../../../api/users/types";
 
 export type UserTypeEnum = "recruiter" | "candidate";
 
-export type RegisterUserFormValues = {
-  username: string;
-  email: string;
+export type RegisterUserArgs = Pick<User, "email" | "userType" | "username"> & {
   password: string;
-  userType: UserTypeEnum;
 };
 
-export type RegisterUserFormResponse = Omit<
-  RegisterUserFormValues,
-  "password"
-> & {
-  _id: string;
-  joinedDate: string;
+export type RegisterUserFormResponse = Omit<User, "password"> & {
   token: string;
 };
 
 const useUserRegisterMutation = () => {
   return useMutation({
-    mutationFn: async (registerFormValues: RegisterUserFormValues) => {
+    mutationFn: async (registerFormValues: RegisterUserArgs) => {
       const resp = await api.post<RegisterUserFormResponse>(
         "/users/register",
         registerFormValues
