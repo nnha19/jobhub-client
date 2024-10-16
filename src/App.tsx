@@ -1,15 +1,12 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 
 import AuthContextProvider from "./contexts/AuthContext";
-import { LoginRoute } from "./features/authentication";
+import AuthenticationRoutes from "./features/authentication";
 import MainLayout from "./layouts/MainLayout";
-import SignupRoute from "./features/authentication/routes/signupRoute";
-import JobsRoute from "./features/jobs";
-import { RecruiterDashboardRoute } from "./features/recruiters";
-import { SnackbarProvider } from "notistack";
-import ProtectedRoute from "./layouts/ProtectedRoute";
-import RecruiterRoute from "./layouts/RecruiterRoute";
+import JobsRoutes from "./features/jobs/routes";
+import { RecruiterRoutes } from "./features/recruiters";
 
 const App = () => {
   document.title = "Jobhub project";
@@ -22,26 +19,9 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<MainLayout />}>
-                <Route path="/login" element={<LoginRoute />} />
-                <Route path="/signup" element={<SignupRoute />} />
-
-                <Route
-                  path="/jobs"
-                  element={
-                    <ProtectedRoute>
-                      <JobsRoute />
-                    </ProtectedRoute>
-                  }
-                />
-
-                <Route
-                  path="/recruiter/dashboard"
-                  element={
-                    <RecruiterRoute>
-                      <RecruiterDashboardRoute />
-                    </RecruiterRoute>
-                  }
-                />
+                <Route path="/*" element={<AuthenticationRoutes />} />
+                <Route path="/*" element={<JobsRoutes />} />
+                <Route path="/*" element={<RecruiterRoutes />} />
               </Route>
             </Routes>
           </BrowserRouter>

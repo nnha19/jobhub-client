@@ -8,8 +8,6 @@ interface IProps {
 const RecruiterRoute = ({ children }: IProps) => {
   const { data } = useUsersCurrentRetrieveQuery();
 
-  console.log(data);
-
   if (data?.userType !== "recruiter")
     return <Typography>You can't access this page</Typography>;
 
