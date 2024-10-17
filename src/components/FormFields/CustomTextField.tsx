@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps } from "@mui/material";
+import { Stack, TextField, TextFieldProps, Typography } from "@mui/material";
 import {
   useController,
   UseControllerProps,
@@ -14,8 +14,18 @@ const CustomTextField = <FValues extends FieldValues>({
   name,
   textFieldProps,
 }: IProps<FValues>) => {
-  const { field } = useController({ control, name });
-  return <TextField fullWidth size="small" {...field} {...textFieldProps} />;
+  const {
+    field,
+    formState: { errors },
+  } = useController({ control, name });
+  return (
+    <Stack>
+      <TextField fullWidth size="small" {...field} {...textFieldProps} />
+      {errors && errors[name]?.message && (
+        <Typography color="error">{errors[name].message.toString()}</Typography>
+      )}
+    </Stack>
+  );
 };
 
 export default CustomTextField;

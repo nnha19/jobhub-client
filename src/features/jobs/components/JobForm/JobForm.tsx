@@ -13,12 +13,38 @@ import CustomTextField from "../../../../components/FormFields/CustomTextField";
 import CustomSelectField from "../../../../components/FormFields/CustomSelectField";
 import { useForm } from "react-hook-form";
 import { Job } from "../../api/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import jobValidationSchema from "./jobValidationSchema";
+import { useSnackbar } from "notistack";
 
 const JobForm = () => {
-  const { control } = useForm<Job>();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    control,
+    handleSubmit,
+    formState: {},
+  } = useForm<Job>({
+    mode: "onChange",
+    resolver: yupResolver(jobValidationSchema),
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  const onInvalid = () => {
+    enqueueSnackbar("Please fill in all required fields", {
+      variant: "error",
+    });
+  };
 
   return (
-    <Paper component="form" sx={{ height: "auto", mx: "auto" }}>
+    <Paper
+      onSubmit={handleSubmit(onSubmit, onInvalid)}
+      component="form"
+      sx={{ height: "auto", mx: "auto" }}
+    >
       <Typography sx={{ p: 2 }} textAlign="center" variant="h5">
         Create a new job
       </Typography>
@@ -143,7 +169,7 @@ const JobForm = () => {
             </Card>
           </Stack>
         </Grid2>
-        <Button variant="contained" fullWidth>
+        <Button type="submit" variant="contained" fullWidth>
           Submit
         </Button>
       </Grid2>
