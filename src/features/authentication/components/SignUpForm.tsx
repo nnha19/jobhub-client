@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import CustomTextField from "../../../components/FormFields/CustomTextField";
 import CustomRadioButton from "../../../components/FormFields/CusotmRadioButton";
 import useUserRegisterMutation, {
-  type RegisterUserFormValues,
+  type RegisterUserArgs,
 } from "../api/useUserRegisterMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 
@@ -14,7 +14,7 @@ const USER_TYPE_OPTIONS = [
   { label: "Recruiter", value: "recruiter" },
 ];
 
-const SIGN_UP_FORM_DEFAULT_VALUES: RegisterUserFormValues = {
+const SIGN_UP_FORM_DEFAULT_VALUES: RegisterUserArgs = {
   username: "",
   email: "",
   password: "",
@@ -26,11 +26,11 @@ const SignUpForm = () => {
   const mutation = useUserRegisterMutation();
   const { handleLogin } = useAuthContext();
 
-  const { register, handleSubmit, control } = useForm<RegisterUserFormValues>({
+  const { register, handleSubmit, control } = useForm<RegisterUserArgs>({
     defaultValues: SIGN_UP_FORM_DEFAULT_VALUES,
   });
 
-  const onSubmit = (signUpFormValues: RegisterUserFormValues) => {
+  const onSubmit = (signUpFormValues: RegisterUserArgs) => {
     mutation.mutate(signUpFormValues, {
       onSuccess: (data) => {
         handleLogin(data.token);
@@ -86,7 +86,16 @@ const SignUpForm = () => {
         </Button>
 
         <NavLink to="/login">
-          <Typography>Already have an account? Login</Typography>
+          <Typography
+            color="secondary.main"
+            sx={{
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Already have an account? Login
+          </Typography>
         </NavLink>
       </Paper>
     </Stack>

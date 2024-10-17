@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+import { ThemeProvider } from "@mui/material";
 
+import theme from "./themes/mainTheme";
 import AuthContextProvider from "./contexts/AuthContext";
 import AuthenticationRoutes from "./features/authentication";
 import MainLayout from "./layouts/MainLayout";
@@ -13,21 +15,23 @@ const App = () => {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <SnackbarProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<MainLayout />}>
-                <Route path="/*" element={<AuthenticationRoutes />} />
-                <Route path="jobs/*" element={<JobsRoutes />} />
-                <Route path="recruiter/*" element={<RecruiterRoutes />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </SnackbarProvider>
-      </AuthContextProvider>
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
+          <SnackbarProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<MainLayout />}>
+                  <Route path="/*" element={<AuthenticationRoutes />} />
+                  <Route path="jobs/*" element={<JobsRoutes />} />
+                  <Route path="recruiter/*" element={<RecruiterRoutes />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </SnackbarProvider>
+        </AuthContextProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 

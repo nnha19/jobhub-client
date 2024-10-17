@@ -73,7 +73,16 @@ const LoginForm = () => {
         </Button>
 
         <NavLink to="/signup">
-          <Typography>Don't have an account? Signup</Typography>
+          <Typography
+            color="secondary.main"
+            sx={{
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Don't have an account? Signup
+          </Typography>
         </NavLink>
       </Paper>
     </Stack>

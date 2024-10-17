@@ -32,7 +32,9 @@ const Appbar = () => {
           <Button color="inherit">Login</Button>
         </NavLink>
         <NavLink to="signup">
-          <Button color="inherit">Sign Up</Button>
+          <Button variant="contained" color="secondary">
+            Sign Up
+          </Button>
         </NavLink>
       </Stack>
     </AppbarWrapper>

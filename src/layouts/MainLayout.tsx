@@ -5,7 +5,7 @@ import Appbar from "./MainAppbar";
 
 const MainLayout = () => {
   return (
-    <Box height="100vh">
+    <Box height="100vh" bgcolor="background.default">
       <Appbar />
       <Container sx={{ mt: 2 }}>
         <Box height="100%">
