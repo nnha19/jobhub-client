@@ -13,7 +13,7 @@ const LoginForm = () => {
   const mutation = useUsersLoginMutation();
   const { handleLogin } = useAuthContext();
 
-  const { register, handleSubmit } = useForm<LoginFormValues>({
+  const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
       email: "",
       password: "",
@@ -62,11 +62,20 @@ const LoginForm = () => {
           Log In
         </Typography>
 
-        <CustomTextField {...register("email")} label="Email" />
         <CustomTextField
-          {...register("password")}
-          label="Password"
-          type="password"
+          control={control}
+          name="email"
+          textFieldProps={{
+            label: "Email",
+          }}
+        />
+        <CustomTextField
+          control={control}
+          name="password"
+          textFieldProps={{
+            label: "Password",
+            type: "password",
+          }}
         />
         <Button type="submit" variant="contained">
           Log In

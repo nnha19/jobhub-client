@@ -1,11 +1,7 @@
-import { Stack, Typography } from "@mui/material";
+import JobForm from "../components/JobForm";
 
 const NewJobRoute = () => {
-  return (
-    <Stack>
-      <Typography>Create New Job</Typography>
-    </Stack>
-  );
+  return <JobForm />;
 };
 
 export default NewJobRoute;

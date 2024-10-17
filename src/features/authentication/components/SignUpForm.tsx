@@ -26,7 +26,7 @@ const SignUpForm = () => {
   const mutation = useUserRegisterMutation();
   const { handleLogin } = useAuthContext();
 
-  const { register, handleSubmit, control } = useForm<RegisterUserArgs>({
+  const { handleSubmit, control } = useForm<RegisterUserArgs>({
     defaultValues: SIGN_UP_FORM_DEFAULT_VALUES,
   });
 
@@ -68,12 +68,27 @@ const SignUpForm = () => {
           Create an account
         </Typography>
 
-        <CustomTextField {...register("username")} label="Username" />
-        <CustomTextField {...register("email")} label="Email" />
         <CustomTextField
-          {...register("password")}
-          label="Password"
-          type="password"
+          control={control}
+          name="username"
+          textFieldProps={{
+            label: "Username",
+          }}
+        />
+        <CustomTextField
+          control={control}
+          name="email"
+          textFieldProps={{
+            label: "Email",
+          }}
+        />
+        <CustomTextField
+          control={control}
+          name="password"
+          textFieldProps={{
+            label: "Password",
+            type: "password",
+          }}
         />
         <CustomRadioButton
           options={USER_TYPE_OPTIONS}
