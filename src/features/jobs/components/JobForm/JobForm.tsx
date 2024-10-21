@@ -7,8 +7,12 @@ import { NewJobApiArgs } from "../../api/types";
 import JobDetailsSection from "./JobFormSections/JobDetailsSection";
 import CompanyInfoSection from "./JobFormSections/CompanyInfoSection";
 import jobValidationSchema from "./jobValidationSchema";
+import useCreateJobMutation from "../../api/useCreateJobMutation";
+import { useNavigate } from "react-router-dom";
 
 const JobForm = () => {
+  const navigate = useNavigate();
+  const mutation = useCreateJobMutation();
   const { enqueueSnackbar } = useSnackbar();
 
   const { control, handleSubmit } = useForm<NewJobApiArgs>({
@@ -18,7 +22,11 @@ const JobForm = () => {
   });
 
   const onSubmit = (data: NewJobApiArgs) => {
-    console.log(data);
+    mutation.mutate(data, {
+      onSuccess: (resp) => {
+        navigate(`/jobs/${resp._id}`);
+      },
+    });
   };
 
   const onInvalid = () => {

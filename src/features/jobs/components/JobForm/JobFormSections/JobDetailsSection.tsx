@@ -31,11 +31,11 @@ const JobDetailsSection = ({
                 label: "Minimum Salary",
               }}
               control={control}
-              name="salary.minimum"
+              name="salary.min"
             />
             <CustomTextField
               control={control}
-              name="salary.maximum"
+              name="salary.max"
               textFieldProps={{
                 type: "number",
                 label: "Maximum Salary",

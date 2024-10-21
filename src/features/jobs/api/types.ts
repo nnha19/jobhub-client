@@ -1,3 +1,5 @@
+//  Job Types
+
 export type EmploymentType =
   | "full-time"
   | "part-time"
@@ -6,28 +8,16 @@ export type EmploymentType =
   | "internship";
 
 export type Salary = {
-  minimum: number;
-  maximum: number;
+  max: number;
+  min: number;
 };
 
 export type JobType = "remote" | "on-site" | "hybrid";
 
-export type Company = {
-  id: string;
-  name: string;
-  logo?: string;
-  location: string;
-};
-
-export type NewCompanyApiArgs = Omit<
-  Company,
-  "id" | "applicants" | "recruiter"
->;
-
 export type Job = {
-  id: string;
+  _id: string;
   title: string;
-  company: NewCompanyApiArgs;
+  company: Company;
   jobType: JobType;
   employmentType: EmploymentType;
   requiredSkills: string;
@@ -39,4 +29,18 @@ export type Job = {
   recruiter: string;
 };
 
-export type NewJobApiArgs = Omit<Job, "id" | "postedDate">;
+export type NewJobApiArgs = Omit<Job, "id" | "postedDate" | "company"> & {
+  company: NewCompanyApiArgs;
+};
+
+// Company types
+export type Company = {
+  id: string;
+  name: string;
+  logo?: string;
+  location: string;
+};
+export type NewCompanyApiArgs = Omit<
+  Company,
+  "id" | "applicants" | "recruiter"
+>;
