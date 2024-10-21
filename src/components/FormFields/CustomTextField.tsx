@@ -1,9 +1,10 @@
-import { Stack, TextField, TextFieldProps, Typography } from "@mui/material";
+import { Stack, TextField, TextFieldProps } from "@mui/material";
 import {
   useController,
   UseControllerProps,
   FieldValues,
 } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
 
 interface IProps<T extends FieldValues> extends UseControllerProps<T> {
   textFieldProps?: TextFieldProps;
@@ -21,9 +22,7 @@ const CustomTextField = <FValues extends FieldValues>({
   return (
     <Stack width="100%">
       <TextField fullWidth size="small" {...field} {...textFieldProps} />
-      {errors && errors[name]?.message && (
-        <Typography color="error">{errors[name].message.toString()}</Typography>
-      )}
+      <ErrorMessage errors={errors} name={name} />
     </Stack>
   );
 };

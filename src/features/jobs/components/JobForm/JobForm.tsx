@@ -15,7 +15,7 @@ const JobForm = () => {
   const mutation = useCreateJobMutation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { control, handleSubmit } = useForm<NewJobApiArgs>({
+  const { control, handleSubmit, formState } = useForm<NewJobApiArgs>({
     mode: "onChange",
     // We don't want to validate all the fields. That's why using any here
     resolver: yupResolver(jobValidationSchema) as any,
@@ -34,6 +34,8 @@ const JobForm = () => {
       variant: "error",
     });
   };
+
+  console.log(formState.errors);
 
   return (
     <Paper

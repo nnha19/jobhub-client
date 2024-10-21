@@ -1,9 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+} from "@mui/material";
 import {
   FieldValues,
   useController,
   UseControllerProps,
 } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
 
 type Option = {
   label: string;
@@ -22,17 +29,20 @@ const CustomSelectField = <FValues extends FieldValues>({
   options,
   label,
 }: IProps<FValues>) => {
-  const { field } = useController({ control, name });
+  const { field, formState } = useController({ control, name });
 
   return (
-    <FormControl fullWidth size="small">
-      <InputLabel>{label}</InputLabel>
-      <Select label={label} {...field}>
-        {options.map((option) => (
-          <MenuItem value={option.value}>{option.label}</MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <Stack>
+      <FormControl fullWidth size="small">
+        <InputLabel>{label}</InputLabel>
+        <Select label={label} {...field}>
+          {options.map((option) => (
+            <MenuItem value={option.value}>{option.label}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <ErrorMessage errors={formState.errors} name={name} />
+    </Stack>
   );
 };
 

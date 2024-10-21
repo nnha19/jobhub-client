@@ -21,9 +21,10 @@ const jobValidationSchema = Yup.object().shape({
 
   salary: salarySchema.optional(),
   company: companyValidationSchema,
+  employmentType: Yup.string().required("Employment type is required"),
   requiredSkills: Yup.array()
-    .of(Yup.string().min(2, "Skill must be at least 2 characters long"))
-    .optional(),
+    .required()
+    .min(1, "At least one skill is required"),
   queries: Yup.array()
     .of(Yup.string().min(5, "Query must be at least 5 characters long"))
     .optional(),
