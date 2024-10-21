@@ -1,9 +1,3 @@
-export type JobLocation = {
-  country: string;
-  city: string;
-  address: string;
-};
-
 export type EmploymentType =
   | "full-time"
   | "part-time"
@@ -18,11 +12,22 @@ export type Salary = {
 
 export type JobType = "remote" | "on-site" | "hybrid";
 
+export type Company = {
+  id: string;
+  name: string;
+  logo?: string;
+  location: string;
+};
+
+export type NewCompanyApiArgs = Omit<
+  Company,
+  "id" | "applicants" | "recruiter"
+>;
+
 export type Job = {
   id: string;
   title: string;
-  company: string;
-  location: JobLocation;
+  company: NewCompanyApiArgs;
   jobType: JobType;
   employmentType: EmploymentType;
   requiredSkills: string;
@@ -30,4 +35,8 @@ export type Job = {
   description: string;
   postedDate: string;
   salary: Salary;
+  applicants: string[];
+  recruiter: string;
 };
+
+export type NewJobApiArgs = Omit<Job, "id" | "postedDate">;

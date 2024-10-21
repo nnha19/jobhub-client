@@ -1,9 +1,13 @@
 import { Control } from "react-hook-form";
 
-import CustomAutocomplete from "../../../../../components/CustomAutocomplete";
-import { Job } from "../../../api/types";
+import CustomAutocomplete from "../../../../components/CustomAutocomplete";
+import { NewJobApiArgs } from "../../api/types";
 
-const RequiredSkillsField = ({ control }: { control: Control<Job> }) => {
+const RequiredSkillsField = ({
+  control,
+}: {
+  control: Control<NewJobApiArgs>;
+}) => {
   return (
     <CustomAutocomplete
       autocompleteProps={{

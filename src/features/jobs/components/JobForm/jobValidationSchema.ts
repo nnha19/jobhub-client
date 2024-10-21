@@ -13,11 +13,9 @@ const salarySchema = Yup.object().shape({
     ),
 });
 
-// Location schema validation
-const locationSchema = Yup.object().shape({
-  city: Yup.string().required("City is required"),
-  country: Yup.string().required("Country is required"),
-  address: Yup.string().optional(),
+const companyValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Company name is required"),
+  location: Yup.string().required("Location is required"),
 });
 
 // Main job schema validation
@@ -26,8 +24,8 @@ const jobValidationSchema = Yup.object().shape({
   recruiter: Yup.string().required("Recruiter is required"),
   description: Yup.string().required("Job description is required"),
 
-  salary: salarySchema.optional(), // Optional as salary is not required in your schema
-  location: locationSchema.optional(), // Optional as location is not required in your schema
+  salary: salarySchema.optional(),
+  company: companyValidationSchema,
   requiredSkills: Yup.array()
     .of(Yup.string().min(2, "Skill must be at least 2 characters long"))
     .optional(),
