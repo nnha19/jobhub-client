@@ -23,7 +23,6 @@ const locationSchema = Yup.object().shape({
 // Main job schema validation
 const jobValidationSchema = Yup.object().shape({
   title: Yup.string().required("Job title is required"),
-
   recruiter: Yup.string().required("Recruiter is required"),
   description: Yup.string().required("Job description is required"),
 

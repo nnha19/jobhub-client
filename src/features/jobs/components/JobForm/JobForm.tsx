@@ -13,9 +13,11 @@ import CustomTextField from "../../../../components/FormFields/CustomTextField";
 import CustomSelectField from "../../../../components/FormFields/CustomSelectField";
 import { useForm } from "react-hook-form";
 import { Job } from "../../api/types";
-import { yupResolver } from "@hookform/resolvers/yup";
-import jobValidationSchema from "./jobValidationSchema";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import jobValidationSchema from "./jobValidationSchema";
 import { useSnackbar } from "notistack";
+import RequiredSkillsField from "./JobFormSections/RequiredSkillsField";
+import CustomAutocomplete from "../../../../components/CustomAutocomplete";
 
 const JobForm = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -26,7 +28,7 @@ const JobForm = () => {
     formState: {},
   } = useForm<Job>({
     mode: "onChange",
-    resolver: yupResolver(jobValidationSchema),
+    // resolver: yupResolver(jobValidationSchema),
   });
 
   const onSubmit = (data) => {
@@ -122,13 +124,20 @@ const JobForm = () => {
               <CardHeader title="Job Requirements" />
               <CardContent>
                 <Stack spacing={2}>
-                  <CustomTextField
+                  <RequiredSkillsField control={control} />
+                  {/* <CustomAutocomplete
+                    textFieldProps={{
+                      label: "Required Skills",
+                    }}
+                  /> */}
+
+                  {/* <CustomTextField
                     control={control}
                     name="requiredSkills"
                     textFieldProps={{
                       label: "Required Skills",
                     }}
-                  />
+                  /> */}
                   <CustomSelectField
                     label="Job Type"
                     control={control}
@@ -157,12 +166,16 @@ const JobForm = () => {
                       },
                     ]}
                   />
-                  <CustomTextField
+
+                  <CustomAutocomplete
+                    autocompleteProps={{
+                      options: [],
+                      freeSolo: true,
+                      multiple: true,
+                    }}
                     control={control}
                     name="queries"
-                    textFieldProps={{
-                      label: "Queries",
-                    }}
+                    label="Queries"
                   />
                 </Stack>
               </CardContent>
