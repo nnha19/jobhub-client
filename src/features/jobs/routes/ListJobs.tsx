@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-const JobsRoute = () => {
+const ListJobs = () => {
   return (
     <Stack>
       <Typography>Jobs</Typography>
@@ -8,4 +8,4 @@ const JobsRoute = () => {
   );
 };
 
-export default JobsRoute;
+export default ListJobs;

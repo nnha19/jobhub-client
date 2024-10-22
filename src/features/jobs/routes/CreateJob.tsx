@@ -1,7 +1,7 @@
 import JobForm from "../components/JobForm";
 
-const NewJobRoute = () => {
+const CreateJob = () => {
   return <JobForm />;
 };
 
-export default NewJobRoute;
+export default CreateJob;

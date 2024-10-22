@@ -1,3 +1,3 @@
-import JobsRoute from "./routes/JobsRoute";
+import JobsRoute from "./routes/ListJobs";
 
 export default JobsRoute;

@@ -1,18 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 
-import JobsRoute from "./JobsRoute";
-import NewJobRoute from "./NewJobRoute";
+import ListJobs from "./ListJobs";
+import CreateJob from "./CreateJob";
 import RecruiterRoute from "../../../layouts/RecruiterRoute";
 
 const JobsRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<JobsRoute />} />
+      <Route path="/" element={<ListJobs />} />
       <Route
         path="/new"
         element={
           <RecruiterRoute>
-            <NewJobRoute />
+            <CreateJob />
           </RecruiterRoute>
         }
       />
