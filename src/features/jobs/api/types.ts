@@ -20,7 +20,7 @@ export type Job = {
   company: Company;
   jobType: JobType;
   employmentType: EmploymentType;
-  requiredSkills: string;
+  requiredSkills: string[];
   queries: string;
   description: string;
   postedDate: string;
