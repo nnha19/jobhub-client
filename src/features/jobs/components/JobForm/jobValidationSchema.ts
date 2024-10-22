@@ -28,6 +28,7 @@ const jobValidationSchema = Yup.object().shape({
   queries: Yup.array()
     .of(Yup.string().min(5, "Query must be at least 5 characters long"))
     .optional(),
+  jobType: Yup.string().required("Job type is required"),
 });
 
 export default jobValidationSchema;

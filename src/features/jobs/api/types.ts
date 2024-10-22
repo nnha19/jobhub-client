@@ -38,7 +38,7 @@ export type Company = {
   id: string;
   name: string;
   logo?: string;
-  location: string;
+  address?: string;
 };
 export type NewCompanyApiArgs = Omit<
   Company,
