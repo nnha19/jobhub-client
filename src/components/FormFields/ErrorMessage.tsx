@@ -1,4 +1,4 @@
-import { FieldErrors, FieldValues, Path } from "react-hook-form";
+import { FieldErrors, FieldValues, get, Path } from "react-hook-form";
 import { Stack, Typography } from "@mui/material";
 import ErrorIcon from "@mui/icons-material/Error";
 
@@ -11,7 +11,9 @@ const ErrorMessage = <FValues extends FieldValues>({
   errors,
   name,
 }: IProps<FValues>) => {
-  if (errors[name] && errors[name].message) {
+  const error = get(errors, name);
+
+  if (error && error.message) {
     return (
       <Stack
         sx={{
@@ -23,7 +25,7 @@ const ErrorMessage = <FValues extends FieldValues>({
         alignItems="center"
       >
         <ErrorIcon />
-        <Typography>{errors[name].message.toString()}</Typography>
+        <Typography>{error.message.toString()}</Typography>
       </Stack>
     );
   }

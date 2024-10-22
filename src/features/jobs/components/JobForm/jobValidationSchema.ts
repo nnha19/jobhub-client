@@ -9,9 +9,9 @@ const salarySchema = Yup.object().shape({
   ),
 });
 
-const companyValidationSchema = Yup.object().shape({
+const companyValidationSchema = Yup.object({
   name: Yup.string().required("Company name is required"),
-  address: Yup.string().required("Location is required"),
+  address: Yup.string().required("Address is required"),
 });
 
 // Main job schema validation
