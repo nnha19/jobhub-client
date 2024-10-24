@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import SaveJobButton from "../SaveJobButton";
 import { Job, Salary } from "../../api/types";
 import { formatDistanceToNow } from "date-fns";
+import TruncatedTypography from "../../../../components/TruncatedTypography";
 
 const displaySalary = (salary: Salary) => `$${salary.min} - $${salary.max}`;
 
@@ -52,7 +53,7 @@ const JobCard = ({
           }
         />
         <CardContent>
-          <Typography>{description}</Typography>
+          <TruncatedTypography text={description} wordLimit={50} />
           <Stack mt={2} direction="row" spacing={1}>
             {requiredSkills.map((skill) => (
               <Chip key={skill} label={skill} />
