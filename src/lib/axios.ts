@@ -24,9 +24,7 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
-    //
-    alert(message);
+    // const message = error.response?.data?.message || error.message;
 
     if (error.response?.status === 401) {
       window.location.href = `/login`;

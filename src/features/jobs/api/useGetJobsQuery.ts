@@ -5,11 +5,17 @@ import { Job } from "./types";
 
 export type GetJobsListApiResponse = Job[];
 
-const useGetJobsQuery = () =>
+export type GetJobsListApiArgs = {
+  query?: string;
+};
+
+const useGetJobsQuery = ({ query }: GetJobsListApiArgs) =>
   useQuery({
     queryKey: ["Jobs"],
     queryFn: () =>
-      api.get<GetJobsListApiResponse>("/jobs").then((resp) => resp.data),
+      api
+        .get<GetJobsListApiResponse>(`/jobs?${query}`)
+        .then((resp) => resp.data),
   });
 
 export default useGetJobsQuery;

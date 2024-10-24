@@ -22,8 +22,6 @@ const TruncatedTypography = ({
 }: IProps) => {
   const truncatedText = truncateText(text, wordLimit);
 
-  console.log(truncatedText);
-
   return (
     <Typography
       variant="body1"
