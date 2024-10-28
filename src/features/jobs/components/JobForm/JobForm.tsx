@@ -2,13 +2,29 @@ import { Button, Divider, Grid2, Paper, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { NewJobApiArgs } from "../../api/types";
 import JobDetailsSection from "./JobFormSections/JobDetailsSection";
 import CompanyInfoSection from "./JobFormSections/CompanyInfoSection";
 import jobValidationSchema from "./jobValidationSchema";
 import useCreateJobMutation from "../../api/useCreateJobMutation";
-import { useNavigate } from "react-router-dom";
+
+const jobDefaultValues: Partial<NewJobApiArgs> = {
+  title: "Software Engineer",
+  company: {
+    name: "Google",
+    address: "Mountain View, CA",
+  },
+  employmentType: "full-time",
+  jobType: "remote",
+  requiredSkills: ["JavaScript", "React"],
+  description: "Looking for a React developer",
+  salary: {
+    min: 100000,
+    max: 120000,
+  },
+};
 
 const JobForm = () => {
   const navigate = useNavigate();
@@ -19,6 +35,7 @@ const JobForm = () => {
     mode: "onChange",
     // We don't want to validate all the fields. That's why using any here
     resolver: yupResolver(jobValidationSchema) as any,
+    defaultValues: jobDefaultValues,
   });
 
   const onSubmit = (data: NewJobApiArgs) => {

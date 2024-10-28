@@ -29,7 +29,16 @@ export type Job = {
   recruiter: string;
 };
 
-export type NewJobApiArgs = Omit<Job, "id" | "postedDate" | "company"> & {
+export type NewJobApiArgs = Pick<
+  Job,
+  | "title"
+  | "jobType"
+  | "employmentType"
+  | "requiredSkills"
+  | "queries"
+  | "description"
+  | "salary"
+> & {
   company: NewCompanyApiArgs;
 };
 
