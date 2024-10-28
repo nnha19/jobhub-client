@@ -11,9 +11,11 @@ export const AppbarWrapper = ({ children }: AppbarWrapperProps) => (
   <Toolbar disableGutters>
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          JobHub
-        </Typography>
+        <NavLink style={{ display: "block", width: "100%" }} to="/">
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            JobHub
+          </Typography>
+        </NavLink>
         {children}
       </Toolbar>
     </AppBar>
