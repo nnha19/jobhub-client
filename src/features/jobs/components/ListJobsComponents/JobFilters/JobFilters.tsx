@@ -4,6 +4,7 @@ import { Stack } from "@mui/material";
 import ButtonSelect from "../../../../../components/ButtonSelect";
 import { EMPLOYMENT_TYPE, JOB_TYPE_OPTIONS } from "../../JobForm/const";
 import { EmploymentType, JobType } from "../../../api/types";
+import SalaryFilter from "./SalaryFilter";
 
 const DATE_POSTED_OPTIONS = [
   {
@@ -51,6 +52,7 @@ const JobFilters = () => {
         onChange={setDatePosted}
         options={DATE_POSTED_OPTIONS}
       />
+      <SalaryFilter />
     </Stack>
   );
 };
