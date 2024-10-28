@@ -1,11 +1,15 @@
 import { Control } from "react-hook-form";
 
-import { Card, CardContent, CardHeader, Stack } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Stack } from "@mui/material";
+import "react-quill/dist/quill.snow.css";
+
 import CustomTextField from "../../../../../components/FormFields/CustomTextField";
 import { NewJobApiArgs } from "../../../api/types";
 import CustomSelectField from "../../../../../components/FormFields/CustomSelectField";
 import { EMPLOYMENT_TYPE, JOB_TYPE_OPTIONS } from "../const";
 import RequiredSkillsField from "../RequiredSkillsField";
+import ControllerWithError from "../../../../../lib/react-hook-form/ControllerWithError";
+import ReactQuill from "react-quill";
 
 const JobDetailsSection = ({
   control,
@@ -55,14 +59,20 @@ const JobDetailsSection = ({
             options={JOB_TYPE_OPTIONS}
           />
           <RequiredSkillsField control={control} />
-          <CustomTextField
+          <ControllerWithError
             control={control}
             name="description"
-            textFieldProps={{
-              label: "Job Description",
-              multiline: true,
-              rows: 14,
-            }}
+            render={({ field: { value, onChange } }) => (
+              <Box
+                sx={{
+                  "& .ql-editor": {
+                    height: "400px",
+                  },
+                }}
+              >
+                <ReactQuill theme="snow" value={value} onChange={onChange} />
+              </Box>
+            )}
           />
         </Stack>
       </CardContent>
