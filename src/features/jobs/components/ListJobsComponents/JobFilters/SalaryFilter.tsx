@@ -1,14 +1,27 @@
-import { Button, Paper, Popover, Slider } from "@mui/material";
 import { useState } from "react";
+import { Button, Paper, Popover, Slider } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ClearIcon from "@mui/icons-material/Clear";
+
+import CustomButton from "../../../../../components/CustomButton";
 
 const SalaryFilter = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
+  const handleClear = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
-      <Button variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)}>
+      <CustomButton
+        activeIcon={<KeyboardArrowDownIcon />}
+        endIcon={<ClearIcon onClick={handleClear} />}
+        variant="contained"
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+      >
         100,0$ - 200,0$
-      </Button>
+      </CustomButton>
       <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
