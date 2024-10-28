@@ -1,4 +1,5 @@
 import {
+  Box,
   capitalize,
   Card,
   CardContent,
@@ -24,6 +25,7 @@ const JobCard = ({
   salary,
   description,
   requiredSkills,
+  company,
   _id,
 }: Job) => {
   return (
@@ -40,7 +42,12 @@ const JobCard = ({
           title={title}
           action={<SaveJobButton />}
           subheader={
-            <>
+            <Box>
+              {company?.name && (
+                <Typography variant="subtitle1" mb={2}>
+                  {company.name}
+                </Typography>
+              )}
               {salary && <Typography>{displaySalary(salary)}</Typography>}
               <Stack mt={1} spacing={1} direction="row">
                 <Typography>{capitalize(jobType)}</Typography>
@@ -49,7 +56,7 @@ const JobCard = ({
                   ({formatDistanceToNow(postedDate, { addSuffix: true })})
                 </Typography>
               </Stack>
-            </>
+            </Box>
           }
         />
         <CardContent>
