@@ -16,7 +16,9 @@ const ListJobs = () => {
 
   const { data: jobs, isFetching } = useGetJobsQuery({
     query: searchParams.get("query") || "",
-    ...state,
+    jobType: state.selectedJobType,
+    employmentType: state.employmentType,
+    datePosted: state.datePosted,
   });
 
   return (
