@@ -1,23 +1,23 @@
 import { Pagination, Paper, Stack } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 import useGetJobsQuery from "../api/useGetJobsQuery";
 import JobCard from "../components/ListJobsComponents/JobCard";
 import JobsQueryTextField from "../components/ListJobsComponents/JobsQueryTextField";
-import { useSearchParams } from "react-router-dom";
 import JobFilters from "../components/ListJobsComponents/JobFilters";
 import useJobFilterReducer from "../components/ListJobsComponents/JobFilters/useJobFilterReducer";
-import { useState } from "react";
+import ListJobsSkeleton from "../components/ListJobsComponents/ListJobsSkeleton";
 
 const ListJobs = () => {
   const [state, dispatch] = useJobFilterReducer();
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
 
-  const { data: jobs } = useGetJobsQuery({
+  const { data: jobs, isFetching } = useGetJobsQuery({
     query: searchParams.get("query") || "",
+    ...state,
   });
-
-  if (!jobs) return null;
 
   return (
     <Paper sx={{ minHeight: "100vh", p: 2 }}>
@@ -26,9 +26,12 @@ const ListJobs = () => {
           <JobsQueryTextField />
           <JobFilters state={state} dispatch={dispatch} />
         </Stack>
-        {jobs.map((job) => (
-          <JobCard key={job._id} {...job} />
-        ))}
+        {isFetching ? (
+          <ListJobsSkeleton />
+        ) : (
+          jobs?.map((job) => <JobCard key={job._id} {...job} />)
+        )}
+
         <Stack alignItems="center">
           <Pagination
             count={10}

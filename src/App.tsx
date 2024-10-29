@@ -12,7 +12,14 @@ import { RecruiterRoutes } from "./features/recruiters";
 
 const App = () => {
   document.title = "Jobhub project";
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: 0,
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>

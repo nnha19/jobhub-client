@@ -65,6 +65,7 @@ const ButtonSelect = <Value extends string | number>({
           {options.map((option) => {
             return (
               <MenuItem
+                selected={option.value === value}
                 key={option.value}
                 onClick={() => {
                   handleSelect(option.value);
