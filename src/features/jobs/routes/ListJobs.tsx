@@ -8,6 +8,7 @@ import JobsQueryTextField from "../components/ListJobsComponents/JobsQueryTextFi
 import JobFilters from "../components/ListJobsComponents/JobFilters";
 import useJobFilterReducer from "../components/ListJobsComponents/JobFilters/useJobFilterReducer";
 import ListJobsSkeleton from "../components/ListJobsComponents/ListJobsSkeleton";
+import datePostedToTimestamp from "../utils";
 
 const ListJobs = () => {
   const [state, dispatch] = useJobFilterReducer();
@@ -15,10 +16,10 @@ const ListJobs = () => {
   const [searchParams] = useSearchParams();
 
   const { data: jobs, isFetching } = useGetJobsQuery({
-    query: searchParams.get("query") || "",
+    query: searchParams.get("query") || undefined,
     jobType: state.selectedJobType,
     employmentType: state.employmentType,
-    datePosted: state.datePosted,
+    datePosted: datePostedToTimestamp(state.datePosted),
   });
 
   return (

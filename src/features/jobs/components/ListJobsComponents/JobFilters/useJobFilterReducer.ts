@@ -1,9 +1,10 @@
 import { useReducer } from "react";
 
 import { EmploymentType, JobType } from "../../../api/types";
+import { DatePostedValue } from "./consts";
 
 export type JobFilterType = {
-  datePosted: string | null;
+  datePosted: DatePostedValue | null;
   selectedJobType: JobType | null;
   employmentType: EmploymentType | null;
 };
@@ -17,7 +18,7 @@ export enum ActionType {
 
 type DatePostedActionType = {
   type: ActionType.DATE_POSTED;
-  payload: string | null;
+  payload: DatePostedValue | null;
 };
 
 type JobTypeActionType = {

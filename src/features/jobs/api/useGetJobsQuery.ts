@@ -13,12 +13,12 @@ export type GetJobsListApiArgs = {
   page?: number;
 };
 
-const useGetJobsQuery = ({ query, ...params }: GetJobsListApiArgs) =>
+const useGetJobsQuery = (params: GetJobsListApiArgs) =>
   useQuery({
-    queryKey: ["Jobs", { query, ...params }],
+    queryKey: ["Jobs", params],
     queryFn: () =>
       api
-        .get<GetJobsListApiResponse>(`/jobs?${query}`, {
+        .get<GetJobsListApiResponse>(`/jobs`, {
           params,
         })
         .then((resp) => resp.data),
