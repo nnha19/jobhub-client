@@ -1,58 +1,52 @@
-import { useState } from "react";
-
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import ButtonSelect from "../../../../../components/ButtonSelect";
 import { EMPLOYMENT_TYPE, JOB_TYPE_OPTIONS } from "../../JobForm/const";
-import { EmploymentType, JobType } from "../../../api/types";
-import SalaryFilter from "./SalaryFilter";
+import { DATE_POSTED_OPTIONS } from "./consts";
+import { Action, ActionType, JobFilterType } from "./useJobFilterReducer";
 
-const DATE_POSTED_OPTIONS = [
-  {
-    label: "Last 24 hours",
-    value: "last-24-hours",
-  },
-  {
-    label: "Last 7 days",
-    value: "last-7-days",
-  },
-  {
-    label: "Last 30 days",
-    value: "last-30-days",
-  },
-];
+interface IProps {
+  state: JobFilterType;
+  dispatch: React.Dispatch<Action>;
+}
 
-const JobFilters = () => {
-  const [datePosted, setDatePosted] = useState<string | null>(null);
-
-  const [selectedJobType, setSelectedJobType] = useState<JobType | null>(
-    "remote"
-  );
-  const [employmentType, setEmploymentType] = useState<EmploymentType | null>(
-    "full-time"
-  );
-
+const JobFilters = ({ state, dispatch }: IProps) => {
   return (
     <Stack spacing={2} justifyContent="flex-start" direction="row">
       <ButtonSelect
-        value={employmentType}
-        onChange={setEmploymentType}
+        value={state.employmentType}
+        onChange={(newEploymentType) =>
+          dispatch({
+            type: ActionType.EMPLOYMENT_TYPE,
+            payload: newEploymentType,
+          })
+        }
         options={EMPLOYMENT_TYPE}
         label="Employment Type"
       />
       <ButtonSelect
         label="Job Type"
-        value={selectedJobType}
-        onChange={setSelectedJobType}
+        value={state.selectedJobType}
+        onChange={(newJobType) =>
+          dispatch({ type: ActionType.JOB_TYPE, payload: newJobType })
+        }
         options={JOB_TYPE_OPTIONS}
       />
 
       <ButtonSelect
-        value={datePosted}
+        value={state.datePosted}
         label="Date Posted"
-        onChange={setDatePosted}
+        onChange={(newDatePosted) =>
+          dispatch({ type: ActionType.DATE_POSTED, payload: newDatePosted })
+        }
         options={DATE_POSTED_OPTIONS}
       />
-      <SalaryFilter />
+      <Button
+        onClick={() => dispatch({ type: ActionType.CLEAR_ALL })}
+        variant="outlined"
+        color="secondary"
+      >
+        Clear All
+      </Button>
     </Stack>
   );
 };
