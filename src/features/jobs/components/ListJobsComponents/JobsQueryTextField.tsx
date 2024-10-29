@@ -2,10 +2,14 @@ import { debounce } from "lodash";
 import { IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const JobsQueryTextField = () => {
-  const [_, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const jobSearchQuery = searchParams.get("query") || "";
 
   // Debounce the search input to delay the setSearchParams call
   const debouncedSearch = useCallback(
@@ -15,13 +19,16 @@ const JobsQueryTextField = () => {
     []
   );
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.target.value);
-  };
+  useEffect(() => {
+    setQuery(jobSearchQuery);
+  }, [jobSearchQuery]);
+
+  useEffect(() => {
+    debouncedSearch(query);
+  }, [query, debouncedSearch]);
 
   return (
     <TextField
-      onChange={handleSearch}
       slotProps={{
         input: {
           startAdornment: (
@@ -29,10 +36,17 @@ const JobsQueryTextField = () => {
               <SearchIcon />
             </IconButton>
           ),
+          endAdornment: query && (
+            <IconButton onClick={() => setSearchParams(undefined)}>
+              <ClearIcon />
+            </IconButton>
+          ),
         },
       }}
       label="Search Jobs"
       size="small"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
     />
   );
 };
