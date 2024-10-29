@@ -2,8 +2,9 @@ import { useQuery } from "react-query";
 
 import api from "../../../lib/axios";
 import { EmploymentType, Job, JobType } from "./types";
+import { PaginatedResponse } from "../../../types";
 
-export type GetJobsListApiResponse = Job[];
+export type GetJobsListApiResponse = PaginatedResponse<Job>;
 
 export type GetJobsListApiArgs = {
   query?: string;

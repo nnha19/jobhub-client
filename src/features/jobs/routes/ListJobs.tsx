@@ -17,11 +17,12 @@ const ListJobs = () => {
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
 
-  const { data: jobs, isFetching } = useGetJobsQuery({
+  const { data, isFetching } = useGetJobsQuery({
     query: searchParams.get("query") || undefined,
     jobType: state.selectedJobType,
     employmentType: state.employmentType,
     datePosted: datePostedToTimestamp(state.datePosted),
+    page,
   });
 
   return (
@@ -35,7 +36,7 @@ const ListJobs = () => {
           isFetching={isFetching}
           spinner={<ListJobsSkeleton />}
           noDataMessage={<NoJobsErrorMessage />}
-          data={jobs}
+          data={data?.results}
         >
           {(jobs) => (
             <>
@@ -44,7 +45,7 @@ const ListJobs = () => {
               ))}
               <Stack alignItems="center">
                 <Pagination
-                  count={10}
+                  count={data?.totalPages}
                   color="primary"
                   sx={{ justifyContent: "center" }}
                   page={page}
