@@ -9,6 +9,8 @@ import JobFilters from "../components/ListJobsComponents/JobFilters";
 import useJobFilterReducer from "../components/ListJobsComponents/JobFilters/useJobFilterReducer";
 import ListJobsSkeleton from "../components/ListJobsComponents/ListJobsSkeleton";
 import datePostedToTimestamp from "../utils";
+import WithDataFetchingStates from "../../../components/WithDataFetchionStates";
+import NoJobsErrorMessage from "../components/ListJobsComponents/NoJobsErrorMessage";
 
 const ListJobs = () => {
   const [state, dispatch] = useJobFilterReducer();
@@ -29,21 +31,29 @@ const ListJobs = () => {
           <JobsQueryTextField />
           <JobFilters state={state} dispatch={dispatch} />
         </Stack>
-        {isFetching ? (
-          <ListJobsSkeleton />
-        ) : (
-          jobs?.map((job) => <JobCard key={job._id} {...job} />)
-        )}
-
-        <Stack alignItems="center">
-          <Pagination
-            count={10}
-            color="primary"
-            sx={{ justifyContent: "center" }}
-            page={page}
-            onChange={(_, newPage) => setPage(newPage)}
-          />
-        </Stack>
+        <WithDataFetchingStates
+          isFetching={isFetching}
+          spinner={<ListJobsSkeleton />}
+          noDataMessage={<NoJobsErrorMessage />}
+          data={jobs}
+        >
+          {(jobs) => (
+            <>
+              {jobs.map((job) => (
+                <JobCard key={job._id} {...job} />
+              ))}
+              <Stack alignItems="center">
+                <Pagination
+                  count={10}
+                  color="primary"
+                  sx={{ justifyContent: "center" }}
+                  page={page}
+                  onChange={(_, newPage) => setPage(newPage)}
+                />
+              </Stack>
+            </>
+          )}
+        </WithDataFetchingStates>
       </Stack>
     </Paper>
   );
