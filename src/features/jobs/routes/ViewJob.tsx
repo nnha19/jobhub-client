@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import sanitizeHtml from "sanitize-html";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -23,6 +22,7 @@ import { displaySalary } from "../utils";
 import NotImplementedYet from "../../../components/NotImplementedYet";
 import { useState } from "react";
 import { JobApplicationForm } from "../../jobApplications";
+import SanitizedHTML from "../../../components/SanitizedHTML";
 
 const ViewJob = () => {
   const [isJobApplicationFormOpen, setIsJobApplicationFormOpen] =
@@ -34,8 +34,6 @@ const ViewJob = () => {
   if (!data) return <Typography>No job found with the given id.</Typography>;
 
   if (isFetching) return <ViewJobSkeletons />;
-
-  const sanitizedHTML = sanitizeHtml(data?.description || "");
 
   return (
     <>
@@ -104,11 +102,7 @@ const ViewJob = () => {
           <Typography variant="h6" mb={2}>
             Job Description
           </Typography>
-          <Typography
-            p={0}
-            className="ql-editor"
-            dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
-          />
+          <SanitizedHTML p={0} className="ql-editor" html={data.description} />
           <Divider />
           <Stack mt={2} spacing={2}>
             <Typography variant="h6">Required Skills</Typography>
