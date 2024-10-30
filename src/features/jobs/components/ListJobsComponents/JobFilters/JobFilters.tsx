@@ -10,6 +10,8 @@ interface IProps {
 }
 
 const JobFilters = ({ state, dispatch }: IProps) => {
+  const isFilterActive = Object.values(state).some(Boolean);
+
   return (
     <Stack spacing={2} justifyContent="flex-start" direction="row">
       <ButtonSelect
@@ -44,6 +46,7 @@ const JobFilters = ({ state, dispatch }: IProps) => {
         onClick={() => dispatch({ type: ActionType.CLEAR_ALL })}
         variant="outlined"
         color="secondary"
+        disabled={!isFilterActive}
       >
         Clear All
       </Button>
