@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ListJobs from "./ListJobs";
 import CreateJob from "./CreateJob";
 import RecruiterRoute from "../../../layouts/RecruiterRoute";
+import ViewJob from "./ViewJob";
 
 const JobsRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const JobsRoutes = () => {
           </RecruiterRoute>
         }
       />
+      <Route path="/:jobId" element={<ViewJob />} />
     </Routes>
   );
 };
