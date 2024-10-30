@@ -1,5 +1,6 @@
 import { formatISO } from "date-fns";
 import { DatePostedValue } from "./components/ListJobsComponents/JobFilters/consts";
+import { Salary } from "./api/types";
 
 const datePostedToTimestamp = (
   datePosted: DatePostedValue | null
@@ -24,5 +25,8 @@ const datePostedToTimestamp = (
 
   return formatISO(date);
 };
+
+export const displaySalary = (salary: Salary) =>
+  `$${salary.min} - $${salary.max}`;
 
 export default datePostedToTimestamp;

@@ -11,11 +11,10 @@ import {
 import { NavLink } from "react-router-dom";
 
 import SaveJobButton from "../SaveJobButton";
-import { Job, Salary } from "../../api/types";
+import { Job } from "../../api/types";
 import { formatDistanceToNow } from "date-fns";
 import TruncatedTypography from "../../../../components/TruncatedTypography";
-
-const displaySalary = (salary: Salary) => `$${salary.min} - $${salary.max}`;
+import { displaySalary } from "../../utils";
 
 const JobCard = ({
   title,
