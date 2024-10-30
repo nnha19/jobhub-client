@@ -21,8 +21,13 @@ import ViewJobSkeletons from "../components/ViewJobComponents/ViewJobSkeletons";
 import { formatDistanceToNow } from "date-fns";
 import { displaySalary } from "../utils";
 import NotImplementedYet from "../../../components/NotImplementedYet";
+import { useState } from "react";
+import { JobApplicationForm } from "../../jobApplications";
 
 const ViewJob = () => {
+  const [isJobApplicationFormOpen, setIsJobApplicationFormOpen] =
+    useState(false);
+
   const { jobId } = useParams();
   const { data, isFetching } = useRetrieveJobQuery(jobId || "");
 
@@ -33,77 +38,89 @@ const ViewJob = () => {
   const sanitizedHTML = sanitizeHtml(data?.description || "");
 
   return (
-    <Card
-      sx={{
-        overflow: "unset",
-      }}
-    >
-      <CardHeader
-        sx={{
-          top: 0,
-          position: "sticky",
-          backgroundColor: "background.paper",
-          boxShadow: 1,
-          borderRadius: "4px",
-        }}
-        title={data.title}
-        subheader={
-          <Box>
-            {data.company?.name && (
-              <Typography color="primary" variant="h6" mb={2}>
-                {data.company.name} - {data.company.address}
-              </Typography>
-            )}
-            {data.salary && (
-              <Typography>{displaySalary(data.salary)}</Typography>
-            )}
-            <Stack mt={1} spacing={1} direction="row">
-              <Typography>{capitalize(data.jobType)}</Typography>
-              <Typography>{capitalize(data.employmentType || "")}</Typography>
-              <Typography>
-                ({formatDistanceToNow(data.postedDate, { addSuffix: true })})
-              </Typography>
-            </Stack>
-            <Button sx={{ mt: 2 }} variant="contained">
-              Apply Now
-            </Button>
-          </Box>
-        }
-        action={
-          <Stack direction="row" spacing={1}>
-            <NotImplementedYet>
-              <IconButton>
-                <FavoriteBorderIcon />
-              </IconButton>
-            </NotImplementedYet>
-            <NotImplementedYet>
-              <IconButton>
-                <ShareIcon />
-              </IconButton>
-            </NotImplementedYet>
-          </Stack>
-        }
+    <>
+      <JobApplicationForm
+        open={isJobApplicationFormOpen}
+        onClose={() => setIsJobApplicationFormOpen(false)}
+        companyName={data.company?.name || ""}
+        jobPosition={data.title}
       />
-      <CardContent>
-        <Typography variant="h6" mb={2}>
-          Job Description
-        </Typography>
-        <Typography
-          p={0}
-          className="ql-editor"
-          dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+      <Card
+        sx={{
+          overflow: "unset",
+        }}
+      >
+        <CardHeader
+          sx={{
+            top: 0,
+            position: "sticky",
+            backgroundColor: "background.paper",
+            boxShadow: 1,
+            borderRadius: "4px",
+          }}
+          title={data.title}
+          subheader={
+            <Box>
+              {data.company?.name && (
+                <Typography color="primary" variant="h6" mb={2}>
+                  {data.company.name} - {data.company.address}
+                </Typography>
+              )}
+              {data.salary && (
+                <Typography>{displaySalary(data.salary)}</Typography>
+              )}
+              <Stack mt={1} spacing={1} direction="row">
+                <Typography>{capitalize(data.jobType)}</Typography>
+                <Typography>{capitalize(data.employmentType || "")}</Typography>
+                <Typography>
+                  ({formatDistanceToNow(data.postedDate, { addSuffix: true })})
+                </Typography>
+              </Stack>
+              <Button
+                onClick={() => setIsJobApplicationFormOpen(true)}
+                sx={{ mt: 2 }}
+                variant="contained"
+              >
+                Apply Now
+              </Button>
+            </Box>
+          }
+          action={
+            <Stack direction="row" spacing={1}>
+              <NotImplementedYet>
+                <IconButton>
+                  <FavoriteBorderIcon />
+                </IconButton>
+              </NotImplementedYet>
+              <NotImplementedYet>
+                <IconButton>
+                  <ShareIcon />
+                </IconButton>
+              </NotImplementedYet>
+            </Stack>
+          }
         />
-        <Divider />
-        <Stack mt={2} spacing={2}>
-          <Typography variant="h6">Required Skills</Typography>
-          <Stack spacing={1} direction="row">
-            {data.requiredSkills.map((skill) => (
-              <Chip key={skill} label={skill} />
-            ))}
+        <CardContent>
+          <Typography variant="h6" mb={2}>
+            Job Description
+          </Typography>
+          <Typography
+            p={0}
+            className="ql-editor"
+            dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+          />
+          <Divider />
+          <Stack mt={2} spacing={2}>
+            <Typography variant="h6">Required Skills</Typography>
+            <Stack spacing={1} direction="row">
+              {data.requiredSkills.map((skill) => (
+                <Chip key={skill} label={skill} />
+              ))}
+            </Stack>
           </Stack>
-        </Stack>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 
