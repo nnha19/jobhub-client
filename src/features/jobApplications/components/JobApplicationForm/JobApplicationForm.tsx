@@ -16,6 +16,7 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
   id?: string;
+  jobId: string;
 }
 
 const JOB_APPLICATION_FORM_DEFAULT_VALUES: JobApplicationApiArgs = {
@@ -35,6 +36,7 @@ const JobApplicationForm = ({
   isOpen,
   id,
   onClose,
+  jobId,
 }: IProps) => {
   const createJobApplicationMutation = useCreateJobApplicationMutation();
 
@@ -67,7 +69,7 @@ const JobApplicationForm = ({
     if (id) {
       // handleUpdate(formData, id);
     } else {
-      createJobApplicationMutation.mutate(formData);
+      createJobApplicationMutation.mutate({ data: formData, jobId });
     }
   };
 

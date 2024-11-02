@@ -12,5 +12,4 @@ export interface JobApplication {
     coverLetter: string;
   };
   jobId: string;
-  jobTitle: string;
 }

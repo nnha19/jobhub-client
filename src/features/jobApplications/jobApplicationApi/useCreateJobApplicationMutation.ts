@@ -10,9 +10,15 @@ const useCreateJobApplicationMutation = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   return useMutation({
-    mutationFn: (data: JobApplicationApiArgs) =>
+    mutationFn: ({
+      data,
+      jobId,
+    }: {
+      data: JobApplicationApiArgs;
+      jobId: string;
+    }) =>
       api
-        .post<JobApplication>("/job-applications", data)
+        .post<JobApplication>(`/job-applications/${jobId}`, data)
         .then((resp) => resp.data),
     onSuccess: () => {
       enqueueSnackbar("Job application submitted successfully.", {

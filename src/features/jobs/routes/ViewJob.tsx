@@ -30,7 +30,8 @@ const ViewJob = () => {
   const { jobId } = useParams();
   const { data, isFetching } = useRetrieveJobQuery(jobId || "");
 
-  if (!data) return <Typography>No job found with the given id.</Typography>;
+  if (!data || !jobId)
+    return <Typography>No job found with the given id.</Typography>;
 
   if (isFetching) return <ViewJobSkeletons />;
 
@@ -42,6 +43,7 @@ const ViewJob = () => {
           onClose={onClose}
           companyName={data.company?.name || ""}
           jobPosition={data.title}
+          jobId={jobId}
         />
       )}
       <Card
