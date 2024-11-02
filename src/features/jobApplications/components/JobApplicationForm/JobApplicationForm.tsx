@@ -21,12 +21,13 @@ interface IProps {
 
 const JOB_APPLICATION_FORM_DEFAULT_VALUES: JobApplicationApiArgs = {
   customDetails: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    coverLetter: "",
-    resume: "",
+    firstName: "NYI NYI",
+    lastName: "HMUE AUNG",
+    email: "nyinyihmueaung19@gmail.com",
+    phoneNumber: "+95 9768290598",
+    coverLetter:
+      "lorem ipsume lorem ipsume lorem ipsume lorem ipsume lorem ipsume lorem ipsume lorem ipsume",
+    resume: "MY RESUME HERE",
   },
 };
 
