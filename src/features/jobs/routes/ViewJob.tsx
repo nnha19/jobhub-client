@@ -20,13 +20,12 @@ import ViewJobSkeletons from "../components/ViewJobComponents/ViewJobSkeletons";
 import { formatDistanceToNow } from "date-fns";
 import { displaySalary } from "../utils";
 import NotImplementedYet from "../../../components/NotImplementedYet";
-import { useState } from "react";
 import { JobApplicationForm } from "../../jobApplications";
 import SanitizedHTML from "../../../components/SanitizedHTML";
+import useDisclosure from "../../../hooks/useDisclosure";
 
 const ViewJob = () => {
-  const [isJobApplicationFormOpen, setIsJobApplicationFormOpen] =
-    useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { jobId } = useParams();
   const { data, isFetching } = useRetrieveJobQuery(jobId || "");
@@ -37,12 +36,14 @@ const ViewJob = () => {
 
   return (
     <>
-      <JobApplicationForm
-        open={isJobApplicationFormOpen}
-        onClose={() => setIsJobApplicationFormOpen(false)}
-        companyName={data.company?.name || ""}
-        jobPosition={data.title}
-      />
+      {isOpen && (
+        <JobApplicationForm
+          isOpen={isOpen}
+          onClose={onClose}
+          companyName={data.company?.name || ""}
+          jobPosition={data.title}
+        />
+      )}
       <Card
         sx={{
           overflow: "unset",
@@ -74,11 +75,7 @@ const ViewJob = () => {
                   ({formatDistanceToNow(data.postedDate, { addSuffix: true })})
                 </Typography>
               </Stack>
-              <Button
-                onClick={() => setIsJobApplicationFormOpen(true)}
-                sx={{ mt: 2 }}
-                variant="contained"
-              >
+              <Button onClick={onOpen} sx={{ mt: 2 }} variant="contained">
                 Apply Now
               </Button>
             </Box>

@@ -14,9 +14,16 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title: string | JSX.Element;
 }
 
-const CustomDialog = ({ dialogProps, isOpen, onClose, children }: IProps) => {
+const CustomDialog = ({
+  dialogProps,
+  isOpen,
+  onClose,
+  children,
+  title,
+}: IProps) => {
   const handleCloseDialog = () => {
     onClose();
   };
@@ -24,8 +31,12 @@ const CustomDialog = ({ dialogProps, isOpen, onClose, children }: IProps) => {
   return (
     <Dialog {...dialogProps} open={isOpen} onClose={handleCloseDialog}>
       <DialogTitle>
-        <Stack>
-          <Typography>Title goes here</Typography>
+        <Stack direction="row" justifyContent="space-between">
+          {typeof title !== "string" ? (
+            title
+          ) : (
+            <Typography variant="h5">{title}</Typography>
+          )}
           <IconButton onClick={handleCloseDialog}>
             <ClearIcon />
           </IconButton>
