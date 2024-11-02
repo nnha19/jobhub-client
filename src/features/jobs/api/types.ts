@@ -27,6 +27,7 @@ export type Job = {
   salary: Salary;
   applicants: string[];
   recruiter: string;
+  currentUserApplication: string | undefined;
 };
 
 export type NewJobApiArgs = Pick<

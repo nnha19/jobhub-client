@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -77,9 +77,24 @@ const ViewJob = () => {
                   ({formatDistanceToNow(data.postedDate, { addSuffix: true })})
                 </Typography>
               </Stack>
-              <Button onClick={onOpen} sx={{ mt: 2 }} variant="contained">
-                Apply Now
-              </Button>
+              <Stack mt={1} direction="row" alignItems="center" spacing={2}>
+                <Button
+                  disabled={Boolean(data.currentUserApplication)}
+                  onClick={onOpen}
+                  sx={{ mt: 2 }}
+                  variant="contained"
+                >
+                  Apply Now
+                </Button>
+                {data.currentUserApplication && (
+                  <NavLink
+                    to={`/job-applications/${data.currentUserApplication}`}
+                    className="link"
+                  >
+                    <Typography>Application Submitted</Typography>
+                  </NavLink>
+                )}
+              </Stack>
             </Box>
           }
           action={
