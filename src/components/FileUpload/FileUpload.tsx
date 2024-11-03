@@ -1,22 +1,35 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import useUpload from "./useUpload";
 
 interface IProps {
-  onChange: (file: File) => void;
-  value: File | null;
+  onChange: (fileUrl: string) => void;
   label: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
-const FileUpload = ({ inputProps, label }: IProps) => {
+const FileUpload = ({ inputProps, label, onChange }: IProps) => {
+  const [file, setFile] = useState<File | null>(null);
+  const { isLoading, upload } = useUpload();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      //   onChange(file);
+      upload(file).then((resp) => {
+        onChange(resp.data.secure_url);
+        setFile(file);
+      });
     }
   };
 
@@ -35,11 +48,26 @@ const FileUpload = ({ inputProps, label }: IProps) => {
           cursor: "pointer",
         }}
       >
-        <IconButton>
-          <CloudUploadIcon />
-        </IconButton>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <IconButton>
+            <CloudUploadIcon />
+          </IconButton>
+        )}
         <Typography variant="subtitle2">{label}</Typography>
       </Box>
+      {file?.name && (
+        <Chip
+          sx={{ mt: 1 }}
+          label={file?.name}
+          onDelete={() => {
+            setFile(null);
+            onChange("");
+            inputRef.current!.value = "";
+          }}
+        />
+      )}
 
       <input
         onChange={handleChange}

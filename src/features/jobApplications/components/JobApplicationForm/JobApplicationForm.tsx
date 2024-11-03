@@ -9,13 +9,14 @@ import useCreateJobApplicationMutation, {
   JobApplicationApiArgs,
 } from "../../jobApplicationApi/useCreateJobApplicationMutation";
 import jobApplicationValidationSchema from "./jobApplicationValidationSchema";
+import FileUpload from "../../../../components/FileUpload";
+import ControllerWithError from "../../../../lib/react-hook-form/ControllerWithError";
 
 interface IProps {
   companyName: string;
   jobPosition: string;
   isOpen: boolean;
   onClose: () => void;
-  id?: string;
   jobId: string;
 }
 
@@ -35,7 +36,6 @@ const JobApplicationForm = ({
   companyName,
   jobPosition,
   isOpen,
-  id,
   onClose,
   jobId,
 }: IProps) => {
@@ -67,11 +67,7 @@ const JobApplicationForm = ({
   };
 
   const onSubmit = (formData: JobApplicationApiArgs) => {
-    if (id) {
-      // handleUpdate(formData, id);
-    } else {
-      createJobApplicationMutation.mutate({ data: formData, jobId });
-    }
+    createJobApplicationMutation.mutate({ data: formData, jobId });
   };
 
   return (
@@ -120,12 +116,12 @@ const JobApplicationForm = ({
           control={control}
           name="customDetails.phoneNumber"
         />
-        <CustomTextField
-          textFieldProps={{
-            label: "Resume",
-          }}
+        <ControllerWithError
           control={control}
           name="customDetails.resume"
+          render={({ field: { onChange } }) => (
+            <FileUpload label="Resume" onChange={onChange} />
+          )}
         />
         <CustomTextField
           textFieldProps={{
