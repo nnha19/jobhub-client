@@ -67,7 +67,10 @@ const JobApplicationForm = ({
   };
 
   const onSubmit = (formData: JobApplicationApiArgs) => {
-    createJobApplicationMutation.mutate({ data: formData, jobId });
+    createJobApplicationMutation.mutate(
+      { data: formData, jobId },
+      { onSuccess: onClose }
+    );
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import api from "../../../lib/axios";
 import { JobApplication } from "../types";
@@ -7,6 +7,7 @@ import { useSnackbar } from "notistack";
 export type JobApplicationApiArgs = Pick<JobApplication, "customDetails">;
 
 const useCreateJobApplicationMutation = () => {
+  const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
 
   return useMutation({
@@ -20,9 +21,12 @@ const useCreateJobApplicationMutation = () => {
       api
         .post<JobApplication>(`/job-applications/${jobId}`, data)
         .then((resp) => resp.data),
-    onSuccess: () => {
+    onSuccess: (_, { jobId }) => {
       enqueueSnackbar("Job application submitted successfully.", {
         variant: "success",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["Jobs", jobId],
       });
     },
 
