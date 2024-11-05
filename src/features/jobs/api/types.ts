@@ -28,6 +28,7 @@ export type Job = {
   applicants: string[];
   recruiter: string;
   currentUserApplication: string | undefined;
+  isSaved: boolean;
 };
 
 export type NewJobApiArgs = Pick<

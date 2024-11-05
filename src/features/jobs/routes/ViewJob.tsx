@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { NavLink, useParams } from "react-router-dom";
 import ShareIcon from "@mui/icons-material/Share";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import useRetrieveJobQuery from "../api/useRetrieveJobQuery";
 import ViewJobSkeletons from "../components/ViewJobComponents/ViewJobSkeletons";
@@ -23,6 +22,7 @@ import NotImplementedYet from "../../../components/NotImplementedYet";
 import { JobApplicationForm } from "../../jobApplications";
 import SanitizedHTML from "../../../components/SanitizedHTML";
 import useDisclosure from "../../../hooks/useDisclosure";
+import SaveJobButton from "../components/SaveJobButton";
 
 const ViewJob = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -99,11 +99,7 @@ const ViewJob = () => {
           }
           action={
             <Stack direction="row" spacing={1}>
-              <NotImplementedYet>
-                <IconButton>
-                  <FavoriteBorderIcon />
-                </IconButton>
-              </NotImplementedYet>
+              <SaveJobButton jobId={data._id} isSaved={data.isSaved} />
               <NotImplementedYet>
                 <IconButton>
                   <ShareIcon />
