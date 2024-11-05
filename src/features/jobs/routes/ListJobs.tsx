@@ -1,16 +1,13 @@
-import { Pagination, Paper, Stack } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 import useGetJobsQuery from "../api/useGetJobsQuery";
-import JobCard from "../components/ListJobsComponents/JobCard";
 import JobsQueryTextField from "../components/ListJobsComponents/JobsQueryTextField";
 import JobFilters from "../components/ListJobsComponents/JobFilters";
 import useJobFilterReducer from "../components/ListJobsComponents/JobFilters/useJobFilterReducer";
-import ListJobsSkeleton from "../components/ListJobsComponents/ListJobsSkeleton";
 import datePostedToTimestamp from "../utils";
-import WithDataFetchingStates from "../../../components/WithDataFetchionStates";
-import NoJobsErrorMessage from "../components/ListJobsComponents/NoJobsErrorMessage";
+import PaginatedJobsList from "../components/ListJobsComponents/PaginatedJobsList";
 
 const ListJobs = () => {
   const [state, dispatch] = useJobFilterReducer();
@@ -32,29 +29,13 @@ const ListJobs = () => {
           <JobsQueryTextField />
           <JobFilters state={state} dispatch={dispatch} />
         </Stack>
-        <WithDataFetchingStates
-          isFetching={isFetching}
-          spinner={<ListJobsSkeleton />}
-          noDataMessage={<NoJobsErrorMessage />}
-          data={data?.results}
-        >
-          {(jobs) => (
-            <>
-              {jobs.map((job) => (
-                <JobCard key={job._id} {...job} />
-              ))}
-              <Stack alignItems="center">
-                <Pagination
-                  count={data?.totalPages}
-                  color="primary"
-                  sx={{ justifyContent: "center" }}
-                  page={page}
-                  onChange={(_, newPage) => setPage(newPage)}
-                />
-              </Stack>
-            </>
-          )}
-        </WithDataFetchingStates>
+        <PaginatedJobsList
+          isLoading={isFetching}
+          jobs={data?.results || []}
+          page={page}
+          totalPages={data?.totalPages || 1}
+          onPageChange={setPage}
+        />
       </Stack>
     </Paper>
   );

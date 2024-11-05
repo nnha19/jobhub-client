@@ -45,7 +45,7 @@ const RecruiterProfilePopover = ({ anchorEl, onClose }: IProps) => {
         <Stack>
           <List>
             <ListItem disablePadding disableGutters>
-              <ListItemButton>
+              <ListItemButton onClick={() => navigate("/jobs/my-jobs")}>
                 <ListItemIcon>
                   <WorkIcon />
                 </ListItemIcon>

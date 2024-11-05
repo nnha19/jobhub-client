@@ -4,6 +4,7 @@ import ListJobs from "./ListJobs";
 import CreateJob from "./CreateJob";
 import RecruiterRoute from "../../../layouts/RecruiterRoute";
 import ViewJob from "./ViewJob";
+import MyJobs from "./MyJobs";
 
 const JobsRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const JobsRoutes = () => {
           </RecruiterRoute>
         }
       />
+      <Route path="/my-jobs" element={<MyJobs />} />
       <Route path="/:jobId" element={<ViewJob />} />
     </Routes>
   );
